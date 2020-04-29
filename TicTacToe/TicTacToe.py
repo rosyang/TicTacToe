@@ -1,60 +1,52 @@
 player1 = "X"
 player2 = "O"
 
-# Works best with an odd number of rows and columns
-rows, cols = (5, 5)
-board = []
 
-
-# Creates a 2D array for the TicTacToe board
-# Headings with appropriate indices are displayed with board
-# Works best with an odd number of rows and columns
-def create_board():
-    top_heading = []
-
-    for i in range(cols):
-        col_1 = []
-        col_2 = []
-        top_heading = []
-
-        for j in range(rows):
-            if j % 2 == 0:
-                col_1.append(" ")
-                top_heading.append(j)
-            elif j % 2 == 1:
-                col_1.append("|")
-                top_heading.append(" ")
-            col_2.append("-")
-
-        col_1.insert(0, i)
-        col_2.insert(0, " ")
-
-        if i % 2 == 0:
-            board.append(col_1)
-        elif i % 2 == 1:
-            board.append(col_2)
-
-    top_heading.insert(0, " ")
-    board.insert(0, top_heading)
-
-
-# Prints the TicTacToe board
-def print_board():
-    for r in board:
-        for c in r:
-            print(c, end=" ")
+# Prints TicTacToe board with lines
+def print_board(arr):
+    board_rows, board_cols = (5, 5)
+    print()
+    for r in range(board_rows):
+        if r % 2 == 0:
+            i = 0
+            for c in range(board_cols):
+                if c % 2 == 0:
+                    print(arr[int(r/2)][i], end=" ")
+                    i += 1
+                elif c % 2 == 1:
+                    print("|", end=" ")
+        elif r % 2 == 1:
+            for c in range(board_cols):
+                print("-", end=" ")
         print()
+    print()
 
 
 # TicTacToe simulation
 def ttt_simulation():
     print("Hello! Welcome to Joanne Tic-Tac-Toe!")
     print("This is a Tic-Tac-Toe game between two players.")
-    print("Player 1 is %s" % player1)
-    print("Player 2 is %s" % player2)
+    input("Please press enter to start the game: ")
+    game = "Y"
 
-    create_board()
-    print_board()
+    while game == "Y":
+        # Creates a new 2D array for TicTacToe values
+        arr_rows, arr_cols = (3, 3)
+        arr = []
+        i = 1
+        for r in range(arr_rows):
+            col = []
+            for c in range(arr_cols):
+                col.append(str(i))
+                i += 1
+            arr.append(col)
+
+        print_board(arr)
+        print("Player 1 is %s" % player1)
+        print("Player 2 is %s" % player2)
+        print()
+
+        game = "N"
 
 
 def main():
