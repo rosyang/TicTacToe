@@ -43,8 +43,19 @@ def print_board2(array):
     print()
 
 
-# Updates array with players' placement of marker
-# def place_marker(pos):
+# Checks if marker position in the array is a valid input
+def check_pos(array, pos):
+    try:
+        pos = int(pos)
+        if 1 <= pos <= 9:
+            if array[(pos - 1) // 3][(pos - 1) % 3] == int:
+                return pos
+            else:
+                raise ValueError
+        else:
+            raise ValueError
+    except ValueError:
+        raise ValueError
 
 
 # TicTacToe simulation
@@ -53,6 +64,7 @@ def ttt_simulation():
     print("This is a Tic-Tac-Toe game between two players.")
     input("Please press enter to start the game: ")
     game = "Y"
+    win = "N"
 
     while game == "Y":
         # Creates a new 2D array for TicTacToe values
@@ -71,13 +83,28 @@ def ttt_simulation():
         print("Player 2 is %s" % marker_2)
         print()
 
-        # pos_1 = input("Player 1, please choose a number on the board to place your marker: ")
-        # place_marker(pos_1)
-        # print_board(val)
+        while win == "N":
+            while True:
+                try:
+                    user_pos_1 = input("Player 1, please choose a number on the board to place your marker: ")
+                    pos_1 = check_pos(val, user_pos_1)
+                    val[(pos_1 - 1) // 3][(pos_1 - 1) % 3] = marker_1
+                    print_board(val)
+                    break
+                except ValueError:
+                    print("Not a valid input. Please try again.")
 
-        # pos_2 = input("Player 2, please choose a number on the board to place your marker: ")
-        # place_marker(pos_2)
-        # print_board(val)
+            while True:
+                try:
+                    user_pos_2 = input("Player 2, please choose a number on the board to place your marker: ")
+                    pos_2 = check_pos(val, user_pos_2)
+                    val[(pos_2 - 1) // 3][(pos_2 - 1) % 3] = marker_2
+                    print_board(val)
+                    break
+                except ValueError:
+                    print("Not a valid input. Please try again.")
+
+            win = "Y"
 
         game = "N"
 
@@ -90,5 +117,6 @@ if __name__ == "__main__":
     main()
 
 # Questions
-# Allow players to select their own markers?
-# Need to add error messages to marker inputs
+# Allow players to select their own markers
+# How to add different error messages to the same function
+# Check array for win scenarios
