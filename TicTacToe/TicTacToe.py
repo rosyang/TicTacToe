@@ -2,7 +2,7 @@ marker_1 = "X"
 marker_2 = "O"
 
 
-# Prints TicTacToe board with lines
+# Prints TicTacToe board with lines.
 def print_board(array):
     print()
     for r in range(len(array)):
@@ -43,22 +43,26 @@ def print_board2(array):
     print()
 
 
-# Checks if marker position in the array is a valid input
+# Checks if marker position in the array is a valid input.
+# (1) pos is an integer (2) pos is between 1-9 (3) pos does not contain another marker
 def check_pos(array, pos):
     try:
         pos = int(pos)
         if 1 <= pos <= 9:
-            if array[(pos - 1) // 3][(pos - 1) % 3] == int:
-                return pos
-            else:
-                raise ValueError
+            int(array[(pos - 1) // 3][(pos - 1) % 3])
+            return pos
         else:
             raise ValueError
     except ValueError:
         raise ValueError
 
 
-# TicTacToe simulation
+# Checks if one of three win scenarios are met.
+# (1) Three in a row (2) Three in a column (3) Three diagonally
+# def check_win(array):
+
+
+# TicTacToe simulation.
 def ttt_simulation():
     print("Hello! Welcome to Joanne Tic-Tac-Toe!")
     print("This is a Tic-Tac-Toe game between two players.")
@@ -67,7 +71,7 @@ def ttt_simulation():
     win = "N"
 
     while game == "Y":
-        # Creates a new 2D array for TicTacToe values
+        # Creates a new 2D array for TicTacToe values.
         val_rows, val_cols = (3, 3)
         val = []
         i = 1
@@ -83,12 +87,14 @@ def ttt_simulation():
         print("Player 2 is %s" % marker_2)
         print()
 
+        # Players take turn placing their marker on the board until there is a winner.
         while win == "N":
             while True:
                 try:
                     user_pos_1 = input("Player 1, please choose a number on the board to place your marker: ")
                     pos_1 = check_pos(val, user_pos_1)
                     val[(pos_1 - 1) // 3][(pos_1 - 1) % 3] = marker_1
+                    # check_win(val)
                     print_board(val)
                     break
                 except ValueError:
@@ -99,6 +105,7 @@ def ttt_simulation():
                     user_pos_2 = input("Player 2, please choose a number on the board to place your marker: ")
                     pos_2 = check_pos(val, user_pos_2)
                     val[(pos_2 - 1) // 3][(pos_2 - 1) % 3] = marker_2
+                    # check_win(val)
                     print_board(val)
                     break
                 except ValueError:
