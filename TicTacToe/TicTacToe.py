@@ -6,39 +6,14 @@ marker_2 = "O"
 def print_board(array):
     print()
     for r in range(len(array)):
-        if r == 0:
-            for c in range(len(array[r])):
-                if c == 0:
-                    print(array[r][c], end=" ")
-                else:
-                    print("| " + array[r][c], end=" ")
-        else:
+        if r != 0:
             for c in range(len(array[r]) * 2 - 1):
                 print("-", end=" ")
             print()
-            for c in range(len(array[r])):
-                if c == 0:
-                    print(array[r][c], end=" ")
-                else:
-                    print("| " + array[r][c], end=" ")
-        print()
-    print()
-
-
-# r % 2
-# array[int(r/2)]
-def print_board2(array):
-    print()
-    for r in range(len(array) * 2 - 1):
-        if r % 2 == 0:
-            for c in range(len(array[int(r/2)])):
-                if c == 0:
-                    print(array[int(r/2)][c], end=" ")
-                else:
-                    print("| " + array[int(r/2)][c], end=" ")
-        elif r % 2 == 1:
-            for c in range(len(array[int(r/2)]) * 2 - 1):
-                print("-", end=" ")
+        for c in range(len(array[r])):
+            if c != 0:
+                print("|", end=" ")
+            print(array[r][c], end=" ")
         print()
     print()
 
@@ -48,12 +23,17 @@ def print_board2(array):
 def check_pos(array, pos):
     try:
         pos = int(pos)
-        if 1 <= pos <= 9:
-            int(array[(pos - 1) // 3][(pos - 1) % 3])
-            return pos
-        else:
-            raise ValueError
     except ValueError:
+        print("Not a valid integer. Please try again.")
+        raise ValueError
+
+    # row and col length variables for 1-9
+    # max position num
+    if 1 <= pos <= 9:
+        int(array[(pos - 1) // 3][(pos - 1) % 3])
+        return pos
+    else:
+        print("Not a valid number. Please choose a number between 1-9.")
         raise ValueError
 
 
@@ -64,20 +44,21 @@ def check_pos(array, pos):
 
 # TicTacToe simulation.
 def ttt_simulation():
+    print()
     print("Hello! Welcome to Joanne Tic-Tac-Toe!")
     print("This is a Tic-Tac-Toe game between two players.")
     input("Please press enter to start the game: ")
-    game = "Y"
-    win = "N"
+    should_play = True
+    player_won = False
 
-    while game == "Y":
+    while should_play:
         # Creates a new 2D array for TicTacToe values.
-        val_rows, val_cols = (3, 3)
+        NUM_ROWS, NUM_COLS = (3, 3)
         val = []
         i = 1
-        for r in range(val_rows):
+        for r in range(NUM_ROWS):
             col = []
-            for c in range(val_cols):
+            for c in range(NUM_COLS):
                 col.append(str(i))
                 i += 1
             val.append(col)
@@ -88,7 +69,7 @@ def ttt_simulation():
         print()
 
         # Players take turn placing their marker on the board until there is a winner.
-        while win == "N":
+        while not player_won:
             while True:
                 try:
                     user_pos_1 = input("Player 1, please choose a number on the board to place your marker: ")
@@ -98,7 +79,7 @@ def ttt_simulation():
                     print_board(val)
                     break
                 except ValueError:
-                    print("Not a valid input. Please try again.")
+                    pass
 
             while True:
                 try:
@@ -109,11 +90,11 @@ def ttt_simulation():
                     print_board(val)
                     break
                 except ValueError:
-                    print("Not a valid input. Please try again.")
+                    pass
 
-            win = "Y"
+            player_won = True
 
-        game = "N"
+        should_play = False
 
 
 def main():
@@ -127,3 +108,5 @@ if __name__ == "__main__":
 # Allow players to select their own markers
 # How to add different error messages to the same function
 # Check array for win scenarios
+# check_pos variables
+# print introductory board, boolean parameter
