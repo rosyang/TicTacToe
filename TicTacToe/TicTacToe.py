@@ -3,7 +3,7 @@ marker_2 = "O"
 
 
 # Prints TicTacToe board with lines.
-# Can print introductory board with numbers indicating position.
+# Option to print introductory board with numbers indicating position.
 def print_board(array, intro_board):
     i = 1
     print()
@@ -51,7 +51,23 @@ def check_convert_pos(array, pos):
 
 # Checks if one of three win scenarios are met.
 # (1) Three in a row (2) Three in a column (3) Three diagonally
-# def check_win(array):
+def check_win(array, marker):
+    player_won = False
+
+    for r in range(len(array)):
+        num_marker = 0
+        for c in range(len(array[r])):
+            if array[r][c] == marker:
+                num_marker += 1
+            else:
+                pass
+        if num_marker == 3:
+            player_won = True
+            break
+        else:
+            player_won = False
+
+    return player_won
 
 
 # TicTacToe simulation.
@@ -66,45 +82,55 @@ def ttt_simulation():
     while should_play:
         # Creates a new 2D array for TicTacToe values.
         NUM_ROWS, NUM_COLS = (3, 3)
-        val = []
+        board_values = []
         for r in range(NUM_ROWS):
             col = []
             for c in range(NUM_COLS):
                 col.append(" ")
-            val.append(col)
+            board_values.append(col)
 
         # Introductory board
         print()
-        print("The board is arranged in the following order of numbers.")
+        print("The board is arranged in the following order of numbers:")
         print("Player 1 is %s" % marker_1)
         print("Player 2 is %s" % marker_2)
-        print_board(val, True)
+        print_board(board_values, True)
 
         # Players take turn placing their marker on the board until there is a winner.
         while not player_won:
             while True:
                 try:
                     user_pos_1 = input("Player 1, please choose a number on the board to place your marker: ")
-                    pos_1 = check_convert_pos(val, user_pos_1)
-                    val[(pos_1 - 1) // 3][(pos_1 - 1) % 3] = marker_1
-                    # check_win(val)
-                    print_board(val, False)
+                    pos_1 = check_convert_pos(board_values, user_pos_1)
+                    board_values[(pos_1 - 1) // 3][(pos_1 - 1) % 3] = marker_1
                     break
                 except ValueError:
                     pass
+
+            if check_win(board_values, marker_1):
+                print_board(board_values, False)
+                print("Congratulations! Player 1 won!")
+                # player_won = True
+                break
+            else:
+                print_board(board_values, False)
 
             while True:
                 try:
                     user_pos_2 = input("Player 2, please choose a number on the board to place your marker: ")
-                    pos_2 = check_convert_pos(val, user_pos_2)
-                    val[(pos_2 - 1) // 3][(pos_2 - 1) % 3] = marker_2
-                    # check_win(val)
-                    print_board(val, False)
+                    pos_2 = check_convert_pos(board_values, user_pos_2)
+                    board_values[(pos_2 - 1) // 3][(pos_2 - 1) % 3] = marker_2
                     break
                 except ValueError:
                     pass
 
-            player_won = True
+            if check_win(board_values, marker_2):
+                print_board(board_values, False)
+                print("Congratulations! Player 2 won!")
+                # player_won = True
+                break
+            else:
+                print_board(board_values, False)
 
         should_play = False
 
@@ -119,5 +145,5 @@ if __name__ == "__main__":
 # Questions
 # Allow players to select their own markers
 # Check array for win scenarios
-# val = [[" "] * NUM_COLS] * NUM_ROWS
-
+# player_won = True does not work; has to cycle through the entire body before stopping
+# rename check_win()
