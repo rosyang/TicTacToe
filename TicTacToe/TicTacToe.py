@@ -155,7 +155,19 @@ def ttt_simulation():
                 print("The game is a draw!")
                 break
 
-        should_play = False
+        print()
+        user_play = input("Would you like to play another game (Y/N)? ")
+        while True:
+            if user_play == "Y":
+                break
+            elif user_play == "N":
+                should_play = False
+                break
+            else:
+                user_play = input("Please enter Y/N: ")
+
+    print()
+    print("Thank you for playing Joanne Tic-Tac-Toe! See you next time!")
 
 
 def main():
@@ -166,9 +178,9 @@ if __name__ == "__main__":
     main()
 
 # Questions
-# player_won = True does not work; has to cycle through the entire body before stopping
-# rename check_win() --> player_won()?
+# player_won = True
+# Rename check_win() --> player_won()
+# Rename check_draw() --> player_draw()
 
 # To Do
 # Allow players to select their own markers
-# Ask if players want to play again
