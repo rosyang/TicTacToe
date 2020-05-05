@@ -52,7 +52,6 @@ def check_convert_pos(array, pos):
 # Checks if one of three win scenarios are met.
 # (1) Three in a row (2) Three in a column (3) Three diagonally (\ and /)
 def check_win(array, marker):
-    player_won = False
     num_marker_diag_1 = 0
     num_marker_diag_2 = 0
 
@@ -76,13 +75,20 @@ def check_win(array, marker):
                     num_marker_diag_2 += 1
 
         if num_marker_row == 3 or num_marker_col == 3:
-            player_won = True
-            break
+            return True
 
     if num_marker_diag_1 == 3 or num_marker_diag_2 == 3:
-        player_won = True
+        return True
 
-    return player_won
+
+# Checks if board still has blank spaces. Otherwise, draw scenario.
+def check_draw(array):
+    draw = True
+    for r in range(len(array)):
+        for c in range(len(array[r])):
+            if array[r][c] == " ":
+                draw = False
+    return draw
 
 
 # TicTacToe simulation.
@@ -122,13 +128,14 @@ def ttt_simulation():
                 except ValueError:
                     pass
 
+            print_board(board_values, False)
             if check_win(board_values, marker_1):
-                print_board(board_values, False)
                 print("Congratulations! Player 1 won!")
                 # player_won = True
                 break
-            else:
-                print_board(board_values, False)
+            elif check_draw(board_values):
+                print("The game is a draw!")
+                break
 
             while True:
                 try:
@@ -139,13 +146,14 @@ def ttt_simulation():
                 except ValueError:
                     pass
 
+            print_board(board_values, False)
             if check_win(board_values, marker_2):
-                print_board(board_values, False)
                 print("Congratulations! Player 2 won!")
                 # player_won = True
                 break
-            else:
-                print_board(board_values, False)
+            elif check_draw(board_values):
+                print("The game is a draw!")
+                break
 
         should_play = False
 
@@ -159,9 +167,8 @@ if __name__ == "__main__":
 
 # Questions
 # player_won = True does not work; has to cycle through the entire body before stopping
-# Do I need an else with if statements?
+# rename check_win() --> player_won()?
 
 # To Do
 # Allow players to select their own markers
-# Check for draw scenario
-# rename check_win() --> player_won()
+# Ask if players want to play again
