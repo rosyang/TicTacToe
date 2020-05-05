@@ -66,7 +66,7 @@ def check_win(array, marker):
                 num_marker_col += 1
             if r == c and array[r][c] == marker:
                 num_marker_diag_1 += 1
-                if r == 1 and array [r][c] == marker:
+                if r == 1:
                     num_marker_diag_2 += 1
             if r == 0 and c == (len(array) - 1):
                 if array[r][c] == marker:
@@ -131,7 +131,6 @@ def ttt_simulation():
             print_board(board_values, False)
             if check_win(board_values, marker_1):
                 print("Congratulations! Player 1 won!")
-                # player_won = True
                 break
             elif check_draw(board_values):
                 print("The game is a draw!")
@@ -149,7 +148,6 @@ def ttt_simulation():
             print_board(board_values, False)
             if check_win(board_values, marker_2):
                 print("Congratulations! Player 2 won!")
-                # player_won = True
                 break
             elif check_draw(board_values):
                 print("The game is a draw!")
@@ -176,11 +174,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# Questions
-# player_won = True
-# Rename check_win() --> player_won()
-# Rename check_draw() --> player_draw()
-
-# To Do
-# Allow players to select their own markers
