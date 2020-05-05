@@ -50,22 +50,37 @@ def check_convert_pos(array, pos):
 
 
 # Checks if one of three win scenarios are met.
-# (1) Three in a row (2) Three in a column (3) Three diagonally
+# (1) Three in a row (2) Three in a column (3) Three diagonally (\ and /)
 def check_win(array, marker):
     player_won = False
+    num_marker_diag_1 = 0
+    num_marker_diag_2 = 0
 
     for r in range(len(array)):
-        num_marker = 0
+        num_marker_row = 0
+        num_marker_col = 0
+
         for c in range(len(array[r])):
             if array[r][c] == marker:
-                num_marker += 1
-            else:
-                pass
-        if num_marker == 3:
+                num_marker_row += 1
+            if array[c][r] == marker:
+                num_marker_col += 1
+            if r == c and array[r][c] == marker:
+                num_marker_diag_1 += 1
+                if r == 1 and array [r][c] == marker:
+                    num_marker_diag_2 += 1
+            if r == 0 and c == (len(array) - 1):
+                if array[r][c] == marker:
+                    num_marker_diag_2 += 1
+                if array[c][r] == marker:
+                    num_marker_diag_2 += 1
+
+        if num_marker_row == 3 or num_marker_col == 3:
             player_won = True
             break
-        else:
-            player_won = False
+
+    if num_marker_diag_1 == 3 or num_marker_diag_2 == 3:
+        player_won = True
 
     return player_won
 
@@ -143,7 +158,10 @@ if __name__ == "__main__":
     main()
 
 # Questions
-# Allow players to select their own markers
-# Check array for win scenarios
 # player_won = True does not work; has to cycle through the entire body before stopping
-# rename check_win()
+# Do I need an else with if statements?
+
+# To Do
+# Allow players to select their own markers
+# Check for draw scenario
+# rename check_win() --> player_won()
